@@ -6,8 +6,8 @@
     "bookSourceType": 0,
     "enabled": true,
     "enabledExplore": true,
-    "lastUpdateTime": 1792220431025,
-    "bookSourceComment": "2026-10-17：修复正文容器为空时未读取页面状态数据的问题，兼容手机网页及容器样式变化。搜索 GOAT本纪可找到《詹姆斯跑路？反手梭哈库里》。搜索、热门榜、目录及正文直接请求番茄。仅支持番茄网页公开章节，会员章节仍受限。",
+    "lastUpdateTime": 1792220753131,
+    "bookSourceComment": "2026-10-17：搜索和发现仅保留文字小说，过滤没有文字正文的有声书及漫画；《实习教出金牌班，家长要换班主任》请选择碧水红潮版。修复空正文容器和手机网页解析。搜索 GOAT本纪可找到《詹姆斯跑路？反手梭哈库里》。仅支持番茄网页公开章节，会员章节仍受限。",
     "header": "{\"User-Agent\":\"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36\",\"Accept-Language\":\"zh-CN,zh;q=0.9\",\"Referer\":\"https://fanqienovel.com/\"}",
     "searchUrl": "https://novel.snssdk.com/api/novel/channel/homepage/search/search/v1/?device_platform=android&parent_enterfrom=novel_channel_search.tab.&offset={{(page-1)*10}}&aid=1967&q={{key}},{\"headers\":{\"User-Agent\":\"com.ss.android.article.news/7.0.3 (Linux; U; Android 12; zh_CN; Pixel 6)\"}}",
     "exploreUrl": "热门推荐::https://api-lf.fanqiesdk.com/api/novel/channel/homepage/rank/rank_list/v2/?aid=13&limit=30&offset={{(page-1)*30}}&side_type=10&type=1\n完结热门::https://api-lf.fanqiesdk.com/api/novel/channel/homepage/rank/rank_list/v2/?aid=13&limit=30&offset={{(page-1)*30}}&side_type=11&type=1\n热搜榜::https://api-lf.fanqiesdk.com/api/novel/channel/homepage/rank/rank_list/v2/?aid=13&limit=30&offset={{(page-1)*30}}&side_type=12&type=1\n黑马榜::https://api-lf.fanqiesdk.com/api/novel/channel/homepage/rank/rank_list/v2/?aid=13&limit=30&offset={{(page-1)*30}}&side_type=13&type=1",
@@ -17,7 +17,7 @@
       "coverUrl": "$.thumb_url",
       "kind": "$.category",
       "bookUrl": "https://fanqienovel.com/page/{{$.book_id}}",
-      "bookList": "$.data.ret_data[*]",
+      "bookList": "$.data.ret_data[?(@.genre == '0' || @.genre == 0)]",
       "name": "$.title",
       "checkKeyWord": "GOAT本纪"
     },
@@ -27,7 +27,7 @@
       "coverUrl": "$.thumb_url",
       "kind": "$.category",
       "bookUrl": "https://fanqienovel.com/page/{{$.book_id}}",
-      "bookList": "$.data.result[*]",
+      "bookList": "$.data.result[?(@.genre == '0' || @.genre == 0)]",
       "name": "$.book_name"
     },
     "ruleBookInfo": {

@@ -153,7 +153,8 @@ var FQApp = (function () {
       md5: function (a) { return bytes(J.security.MessageDigest.getInstance('MD5').digest(jbytes(a))); },
       aes: function (key, iv, a, decrypt) { var cipher = C.Cipher.getInstance('AES/CBC/PKCS5Padding'); cipher.init(decrypt ? 2 : 1, new C.spec.SecretKeySpec(jbytes(key), 'AES'), new C.spec.IvParameterSpec(jbytes(iv))); return bytes(cipher.doFinal(jbytes(a))); },
       gunzip: function (a) { var input = new J.util.zip.GZIPInputStream(new J.io.ByteArrayInputStream(jbytes(a))), output = new J.io.ByteArrayOutputStream(), buf = jbytes(zeros(4096)); try { var n; while ((n = input.read(buf)) !== -1) { output.write(buf, 0, n); if (output.size() > 4194304) throw new Error('章节数据超过大小限制'); } return bytes(output.toByteArray()); } finally { input.close(); output.close(); } },
-      request: function (url, body, h) { var options = { headers: h, retry: 0 }; if (typeof body !== 'undefined') { options.method = 'POST'; options.body = body; } return String(bridge.ajax(url + ',' + JSON.stringify(options), 18000)); },
+      // Older Legado versions expose only ajax(Object), so pass a single Java String.
+      request: function (url, body, h) { var options = { headers: h, retry: 0, timeout: 18000 }; if (typeof body !== 'undefined') { options.method = 'POST'; options.body = body; } return String(bridge.ajax(new J.lang.String(url + ',' + JSON.stringify(options)))); },
       load: function (key) { return cacheStore.get(key); },
       save: function (key, value) { cacheStore.put(key, value); }
     });
